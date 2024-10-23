@@ -1,0 +1,10 @@
+.button {
+  all: unset;
+  width: min-content;
+  padding: 5.5px 4px;
+  text-align: center;
+
+  &.fullWidth {
+    width: 100%;
+  }
+}
