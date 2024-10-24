@@ -3,10 +3,16 @@
 
   cursor: pointer;
 
+  box-sizing: border-box;
   width: min-content;
   padding: 5.5px 4px;
 
   text-align: center;
+
+  border: 1px solid var(--color-4);
+  border-radius: 3px;
+
+  transition: 0.3s;
 
   &:disabled {
     cursor: initial;
@@ -15,5 +21,11 @@
 
   &.fullWidth {
     width: 100%;
+  }
+
+  &:hover,
+  &:disabled {
+    background-color: var(--color-hover);
+    border: none;
   }
 }

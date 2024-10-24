@@ -10,6 +10,6 @@ export type Props = {
 export const Button = forwardRef<HTMLButtonElement, Props>(
   ({ className, variant = 'primary', ...restProps }, ref) => {
     const root = clsx(s.button, s[variant], className)
-    return <button ref={ref} className={root} {...restProps}></button>
+    return <button ref={ref} className={root} {...restProps} />
   }
 )
