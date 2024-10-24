@@ -1,6 +1,6 @@
 import type { SVGProps } from 'react'
 import { Ref, forwardRef, memo } from 'react'
-const SvgEyeOff = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
+const Logotype = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
   <svg
     fill={'none'}
     height={'18px'}
@@ -36,7 +36,7 @@ const SvgEyeOff = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
     />
   </svg>
 )
-const ForwardRef = forwardRef(SvgEyeOff)
+const ForwardRef = forwardRef(Logotype)
 const Memo = memo(ForwardRef)
 
 export default Memo
