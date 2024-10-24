@@ -1,0 +1,27 @@
+.header {
+  display: flex;
+  grid-area: 1/1/2/3;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  padding: 10px 30px;
+
+  & .headerHeading {
+    all: unset;
+  }
+
+  & .inputsBlock {
+    display: flex;
+    column-gap: 10px;
+    align-items: center;
+  }
+}
+
+.textfield {
+  max-width: 350px;
+
+  & input {
+    padding: 6px 6px 6px 35px !important;
+  }
+}
