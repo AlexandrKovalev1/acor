@@ -60,7 +60,7 @@
       }
 
       &.search {
-        padding-left: 3px;
+        padding: 6px 6px 6px 35px !important;
 
         &:not(:focus) ~ button {
           cursor: text;
