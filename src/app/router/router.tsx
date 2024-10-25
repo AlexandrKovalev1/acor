@@ -1,31 +1,42 @@
 import { createBrowserRouter, Navigate, Outlet, RouterProvider } from 'react-router-dom'
 import { Layout } from '../../components/layout'
 import { Login } from '../../pages/login'
+import { Sensor } from '../../pages/sensor'
 
-const ROUTES = {
+export const ROUTES = {
   base: '/',
   login: '/login',
   classes: '/classes',
+  equipment: '/equipment',
+  kipia: '/kipia',
+  sensor: '/sensor',
 }
+//
+// const PrivateRoutes = () => {
+//   const isAuth = true
+//   // if (isLoading) return <InitLoading />
+//
+//   return isAuth ? <Outlet /> : <Navigate to={ROUTES.login} />
+// }
 
-const PrivateRoutes = () => {
-  // if (isLoading) return <InitLoading />
-
-  return true ? <Outlet /> : <Navigate to={ROUTES.login} />
-}
-
-const router = createBrowserRouter([
+export const router = createBrowserRouter([
   {
     path: ROUTES.base,
-    element: <Layout />,
+    element: <Outlet />,
     children: [
       {
-        element: <PrivateRoutes />,
+        element: <Layout />,
+        path: ROUTES.base,
         children: [
           {
-            element: <div>rkfcctc</div>,
-            path: ROUTES.classes,
+            element: <div>content</div>,
+            path: ROUTES.equipment,
           },
+          {
+            element: <div>КИПиА</div>,
+            path: ROUTES.kipia,
+          },
+          { element: <Sensor />, path: ROUTES.sensor },
         ],
       },
       {
