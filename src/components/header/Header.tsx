@@ -5,14 +5,20 @@ import { ChangeEvent, KeyboardEvent, useState } from 'react'
 
 export const Header = () => {
   const [findText, setFindText] = useState('')
-  const [, setSearchParams] = useSearchParams('')
+  const [serchParams, setSearchParams] = useSearchParams('')
 
+  if (!serchParams.get('search') && findText) {
+    setFindText('')
+  }
   const onChangeSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setFindText(e.currentTarget.value)
+
     setSearchParams(searchParams => {
       searchParams.set('search', e.currentTarget.value)
       return searchParams
     })
+
+    !e.currentTarget.value && setSearchParams('')
   }
 
   const onEnterPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
