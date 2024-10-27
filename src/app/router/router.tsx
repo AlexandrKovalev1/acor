@@ -1,7 +1,7 @@
-import { createBrowserRouter, Navigate, Outlet, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { Layout } from '../../components/layout'
 import { Login } from '../../pages/login'
-import { Sensor } from '../../pages/sensor'
+import App from '../App.tsx'
 
 export const ROUTES = {
   base: '/',
@@ -9,35 +9,23 @@ export const ROUTES = {
   classes: '/classes',
   equipment: '/equipment',
   kipia: '/kipia',
-  sensor: '/sensor',
+  sensor: '/classInfoPage',
 }
-//
-// const PrivateRoutes = () => {
-//   const isAuth = true
-//   // if (isLoading) return <InitLoading />
-//
-//   return isAuth ? <Outlet /> : <Navigate to={ROUTES.login} />
-// }
+
+const PrivateRoute = () => {
+  const isAuth = !!localStorage.getItem('token')
+
+  return isAuth ? <Layout /> : <Navigate to={ROUTES.login} />
+}
 
 export const router = createBrowserRouter([
   {
     path: ROUTES.base,
-    element: <Outlet />,
+    element: <App />,
     children: [
       {
-        element: <Layout />,
+        element: <PrivateRoute />,
         path: ROUTES.base,
-        children: [
-          {
-            element: <div>content</div>,
-            path: ROUTES.equipment,
-          },
-          {
-            element: <div>КИПиА</div>,
-            path: ROUTES.kipia,
-          },
-          { element: <Sensor />, path: ROUTES.sensor },
-        ],
       },
       {
         element: <Login />,
@@ -46,7 +34,3 @@ export const router = createBrowserRouter([
     ],
   },
 ])
-
-export const Router = () => {
-  return <RouterProvider router={router} />
-}
