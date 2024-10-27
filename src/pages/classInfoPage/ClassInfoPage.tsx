@@ -1,14 +1,24 @@
-import s from './sensor.module.scss'
+import s from './classInfoPage.module.scss'
 import { CheckBox } from '../../components/checkBox'
 import { ComponentPropsWithoutRef } from 'react'
 import clsx from 'clsx'
+import { Navigate, useSearchParams } from 'react-router-dom'
+import { useGetClasses } from '../../common/hooks/useGetClasses.ts'
+import { useSelectedClassObj } from '../../common/hooks/useSelectedClassObj.ts'
 
-export const Sensor = () => {
+export const ClassInfoPage = () => {
+  const { classes } = useGetClasses()
+  const selectedClass = useSearchParams()[0].get('selectedClass')
+  const { selectedClassObj, comunicationItems } = useSelectedClassObj(classes, selectedClass)
+  if (!classes[0].children) return <Navigate to={'/login'} />
+
+  if (!selectedClassObj) return <div>Выберете класс</div>
+
   return (
     <div className={s.wrapper}>
       <div>
         <h3>Описание</h3>
-        <textarea className={s.textarea} />
+        <textarea className={s.textarea} value={selectedClassObj.data || ''} />
       </div>
       <div>
         <h3>Свойства</h3>
@@ -16,7 +26,7 @@ export const Sensor = () => {
       </div>
       <div>
         <h3>Связи</h3>
-        <TableCommunications />
+        <TableCommunications tableItems={comunicationItems} />
       </div>
     </div>
   )
@@ -78,7 +88,17 @@ const TableProperties = () => {
   )
 }
 
-const TableCommunications = () => {
+const TableCommunicationsItem = ({ label }: { label: string }) => {
+  return (
+    <tr>
+      <td>
+        <CheckBox label={label} />
+      </td>
+    </tr>
+  )
+}
+
+const TableCommunications = ({ tableItems }: { tableItems?: string[] }) => {
   return (
     <Table variant={'small'}>
       <TableHeader>
@@ -86,19 +106,7 @@ const TableCommunications = () => {
           <CheckBox label={'Название класса'} />
         </td>
       </TableHeader>
-      <TableBody>
-        <tr>
-          <td>
-            <CheckBox label={'Механическое оборудование'} />
-          </td>
-        </tr>
-        <tr>
-          <td>
-            {' '}
-            <CheckBox label={'Титул'} />
-          </td>
-        </tr>
-      </TableBody>
+      <TableBody>{tableItems?.map(i => <TableCommunicationsItem label={i} />)}</TableBody>
     </Table>
   )
 }
