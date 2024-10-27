@@ -1,16 +1,15 @@
 import s from './layout.module.scss'
 import { Header } from '../header'
 import { NavigationMenu } from '../navigation'
-import { Outlet } from 'react-router-dom'
-import { nodes } from '../../common/data/nodes.ts'
+import { ClassInfoPage } from '../../pages/classInfoPage'
 
 export const Layout = () => {
   return (
     <div className={s.container}>
       <Header />
-      <NavigationMenu nodes={nodes} />
+      <NavigationMenu />
       <main className={s.main}>
-        <Outlet />
+        <ClassInfoPage />
       </main>
     </div>
   )
