@@ -57,7 +57,7 @@ const TableProperties = () => {
     <Table>
       <TableHeader>
         <td>Название</td>
-        <td>Значение по умолчанию</td>
+        <td>Значение по умолчанию</td>some
         <td>Единица измерения</td>
       </TableHeader>
       <TableBody>

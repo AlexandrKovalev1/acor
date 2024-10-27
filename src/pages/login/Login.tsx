@@ -7,11 +7,15 @@ import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { LoginSchema } from '../../common/utils/zodSchemas.ts'
+import { useLoginMutation } from '../../services/loginApi.ts'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
-type Props = {}
-export const Login = (props: Props) => {
+export const Login = () => {
   type LoginSchemaType = z.infer<typeof LoginSchema>
+  const navigate = useNavigate()
 
+  const [login] = useLoginMutation()
   const {
     register,
     handleSubmit,
@@ -26,7 +30,16 @@ export const Login = (props: Props) => {
 
   const isButtonSubmitDisabled = !!Object.keys(errors).length
 
-  const onSubmitLoginHandler = (data: LoginSchemaType) => {}
+  const onSubmitLoginHandler = (data: LoginSchemaType) => {
+    login(data)
+      .unwrap()
+      .then(res => {
+        localStorage.setItem('token', res.login.token)
+        toast(`Здравствуйте `, { type: 'success' })
+        navigate('/')
+      })
+      .catch(() => toast('Invalid Credentials', { type: 'error' }))
+  }
   return (
     <div className={s.wrapper}>
       <Logotype />

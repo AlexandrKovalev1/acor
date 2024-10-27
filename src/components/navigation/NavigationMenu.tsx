@@ -9,18 +9,17 @@ import {
 import { useState } from 'react'
 import { TreeNode } from 'primereact/treenode'
 import { Button } from '../button'
-import { NavLink, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { useExpandNavigateTree } from '../../common/hooks/useExpandNavigateTree.ts'
 import { ToggleIcon } from '../../assets'
 import clsx from 'clsx'
 import { CheckBox } from '../checkBox'
+import { useGetClasses } from '../../common/hooks/useGetClasses.ts'
 
-type Props = { nodes: TreeNode[] }
-
-export const NavigationMenu = ({ nodes }: Props) => {
+export const NavigationMenu = () => {
   const [searchParams] = useSearchParams()
+  const { classes: nodes } = useGetClasses()
   const { expandAll, expandedKeys, setExpandedKeys, collapseAll } = useExpandNavigateTree(nodes)
-
   const filterValue = searchParams.get('search') || ''
 
   const [selectedKeys, setSelectedKeys] = useState<
@@ -94,10 +93,18 @@ type ListItemContentProps = {
 }
 
 const ListItemContent = ({ node }: ListItemContentProps) => {
+  const setSearchParams = useSearchParams()[1]
+
+  const onlistItemClickHandler = () => {
+    setSearchParams(searchParams => {
+      searchParams.set('selectedClass', node.key as string)
+      return searchParams
+    })
+  }
   return (
-    <NavLink className={s.listItemContentLink} to={node.data} rel="noopener noreferrer">
+    <span className={s.listItemContent} rel="noopener noreferrer" onClick={onlistItemClickHandler}>
       <CheckBox label={node.label} />
-    </NavLink>
+    </span>
   )
 }
 

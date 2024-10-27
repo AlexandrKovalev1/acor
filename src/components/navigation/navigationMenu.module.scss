@@ -28,11 +28,11 @@
   }
 }
 
-.listItemContentLink {
+.listItemContent {
   cursor: pointer;
   width: 100%;
   padding-left: 5px;
-  text-decoration: none;
+  color: var(--color-text);
 }
 
 .listItemButton {

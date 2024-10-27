@@ -1,12 +1,13 @@
-import { Router } from './router/router.tsx'
+import 'react-toastify/dist/ReactToastify.css'
 import { Outlet } from 'react-router-dom'
 
 function App() {
   return (
     <>
-      <Router />
+      <Outlet />
     </>
   )
 }
 
+// <ToastContainer position={'bottom-center'} theme={'dark'} />
 export default App
