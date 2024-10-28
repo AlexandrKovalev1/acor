@@ -3,15 +3,10 @@ import { createRoot } from 'react-dom/client'
 import './styles/index.scss'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/700.css'
-import { RouterProvider } from 'react-router-dom'
-import { router } from './app/router/router.tsx'
-import { Provider } from 'react-redux'
-import { store } from './services/store.ts'
+import App from './app/App.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
+    <App />
   </StrictMode>
 )

@@ -1,36 +1,34 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom'
+import { createBrowserRouter, Navigate, Outlet, RouteObject } from 'react-router-dom'
 import { Layout } from '../../components/layout'
 import { Login } from '../../pages/login'
-import App from '../App.tsx'
 
 export const ROUTES = {
   base: '/',
   login: '/login',
-  classes: '/classes',
-  equipment: '/equipment',
-  kipia: '/kipia',
-  sensor: '/classInfoPage',
 }
 
-const PrivateRoute = () => {
-  const isAuth = !!localStorage.getItem('token')
+const privateRoutes: RouteObject[] = [{ element: <Layout />, path: ROUTES.base }]
+const publicRoutes: RouteObject[] = [
+  {
+    element: <Login />,
+    path: ROUTES.login,
+  },
+]
 
-  return isAuth ? <Layout /> : <Navigate to={ROUTES.login} />
+const PrivateRoutes = () => {
+  const isAuth = !!localStorage.getItem('token')
+  return isAuth ? <Outlet /> : <Navigate to={ROUTES.login} />
 }
 
 export const router = createBrowserRouter([
   {
-    path: ROUTES.base,
-    element: <App />,
+    element: <Outlet />,
     children: [
       {
-        element: <PrivateRoute />,
-        path: ROUTES.base,
+        element: <PrivateRoutes />,
+        children: privateRoutes,
       },
-      {
-        element: <Login />,
-        path: ROUTES.login,
-      },
+      ...publicRoutes,
     ],
   },
 ])

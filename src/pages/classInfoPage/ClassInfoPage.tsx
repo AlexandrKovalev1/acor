@@ -2,7 +2,7 @@ import s from './classInfoPage.module.scss'
 import { CheckBox } from '../../components/checkBox'
 import { ComponentPropsWithoutRef } from 'react'
 import clsx from 'clsx'
-import { Navigate, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { useGetClasses } from '../../common/hooks/useGetClasses.ts'
 import { useSelectedClassObj } from '../../common/hooks/useSelectedClassObj.ts'
 
@@ -10,7 +10,6 @@ export const ClassInfoPage = () => {
   const { classes } = useGetClasses()
   const selectedClass = useSearchParams()[0].get('selectedClass')
   const { selectedClassObj, comunicationItems } = useSelectedClassObj(classes, selectedClass)
-  if (!classes[0].children) return <Navigate to={'/login'} />
 
   if (!selectedClassObj) return <div>Выберете класс</div>
 

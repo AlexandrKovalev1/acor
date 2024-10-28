@@ -1,13 +1,16 @@
 import 'react-toastify/dist/ReactToastify.css'
-import { Outlet } from 'react-router-dom'
+import { RouterProvider } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
+import { Provider } from 'react-redux'
+import { store } from '../services/store.ts'
+import { router } from './router/router.tsx'
 
 function App() {
   return (
-    <>
-      <Outlet />
+    <Provider store={store}>
+      <RouterProvider router={router} />
       <ToastContainer position={'bottom-center'} theme={'dark'} />
-    </>
+    </Provider>
   )
 }
 

@@ -10,6 +10,7 @@ import { LoginSchema } from '../../common/utils/zodSchemas.ts'
 import { useLoginMutation } from '../../services/loginApi.ts'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { ROUTES } from '../../app/router/router.tsx'
 
 export const Login = () => {
   type LoginSchemaType = z.infer<typeof LoginSchema>
@@ -35,8 +36,10 @@ export const Login = () => {
       .unwrap()
       .then(res => {
         localStorage.setItem('token', res.login.token)
+      })
+      .then(() => {
         toast(`Здравствуйте `, { type: 'success' })
-        navigate('/')
+        navigate(ROUTES.base)
       })
       .catch(() => toast('Invalid Credentials', { type: 'error' }))
   }
