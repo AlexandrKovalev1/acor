@@ -1,14 +1,20 @@
 import { ComponentPropsWithoutRef, useId } from 'react'
 import s from './checkBox.module.scss'
+import * as CheckboxRadix from '@radix-ui/react-checkbox'
+import { CheckIcon } from '../../assets'
 
-type Props = { label?: string } & Omit<ComponentPropsWithoutRef<'input'>, 'type'>
+type Props = { label?: string } & ComponentPropsWithoutRef<typeof CheckboxRadix.Root>
 export const CheckBox = ({ id, label, ...props }: Props) => {
   const generatedId = id ?? useId()
 
   return (
-    <div>
-      <input className={s.customCheckbox} id={generatedId} type="checkbox" {...props} />
-      <label htmlFor={generatedId}>{label}</label>
+    <div className={s.wrapper}>
+      <CheckboxRadix.Root {...props} className={s.checkboxRoot}>
+        <CheckboxRadix.Indicator>
+          <CheckIcon />
+        </CheckboxRadix.Indicator>
+      </CheckboxRadix.Root>
+      {label && <label id={generatedId}>{label}</label>}
     </div>
   )
 }
