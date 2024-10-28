@@ -3,8 +3,7 @@ import { useState } from 'react'
 import { TreeExpandedKeysType } from 'primereact/tree'
 
 export const useExpandNavigateTree = (nodes: TreeNode[]) => {
-  const [expandedKeys, setExpandedKeys] = useState<TreeExpandedKeysType>({})
-
+  const [expandedKeys, setExpandedKeys] = useState<TreeExpandedKeysType>({ '0': true })
   const expandAll = () => {
     const _expandedKeys = {}
 

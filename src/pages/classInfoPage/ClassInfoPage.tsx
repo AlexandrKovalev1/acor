@@ -88,9 +88,9 @@ const TableProperties = () => {
   )
 }
 
-const TableCommunicationsItem = ({ label }: { label: string }) => {
+const TableCommunicationsItem = ({ label, key }: { label: string; key: number }) => {
   return (
-    <tr>
+    <tr key={key}>
       <td>
         <CheckBox label={label} />
       </td>
@@ -106,7 +106,9 @@ const TableCommunications = ({ tableItems }: { tableItems?: string[] }) => {
           <CheckBox label={'Название класса'} />
         </td>
       </TableHeader>
-      <TableBody>{tableItems?.map(i => <TableCommunicationsItem label={i} />)}</TableBody>
+      <TableBody>
+        {tableItems?.map((i, index) => <TableCommunicationsItem label={i} key={index} />)}
+      </TableBody>
     </Table>
   )
 }

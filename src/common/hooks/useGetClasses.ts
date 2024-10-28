@@ -14,6 +14,7 @@ export const useGetClasses = () => {
         key: `${index + 1}`,
         label: i.name,
         data: i.description,
+        expanded: false,
         children: i?.classTypes?.map((i, key) => ({
           key: `${index + 1}-${key}`,
           label: i.name,
