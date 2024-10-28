@@ -17,7 +17,7 @@ export const ClassInfoPage = () => {
     <div className={s.wrapper}>
       <div>
         <h3>Описание</h3>
-        <textarea className={s.textarea} value={selectedClassObj.data || ''} />
+        <textarea className={s.textarea} value={selectedClassObj.data || ''} onChange={() => {}} />
       </div>
       <div>
         <h3>Свойства</h3>
@@ -56,7 +56,7 @@ const TableProperties = () => {
     <Table>
       <TableHeader>
         <td>Название</td>
-        <td>Значение по умолчанию</td>some
+        <td>Значение по умолчанию</td>
         <td>Единица измерения</td>
       </TableHeader>
       <TableBody>
@@ -87,9 +87,9 @@ const TableProperties = () => {
   )
 }
 
-const TableCommunicationsItem = ({ label, key }: { label: string; key: number }) => {
+const TableCommunicationsItem = ({ label }: { label: string }) => {
   return (
-    <tr key={key}>
+    <tr>
       <td>
         <CheckBox label={label} />
       </td>

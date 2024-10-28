@@ -2,7 +2,7 @@ import { useGetModelTreeClassesQuery } from '../../services/modelTreeClassesApi.
 import { TreeNode } from 'primereact/treenode'
 
 export const useGetClasses = () => {
-  const { data, isLoading } = useGetModelTreeClassesQuery()
+  const { data, error } = useGetModelTreeClassesQuery()
 
   const nodes: TreeNode[] = [
     {
@@ -26,6 +26,6 @@ export const useGetClasses = () => {
 
   return {
     classes: nodes,
-    isLoading,
+    error,
   }
 }

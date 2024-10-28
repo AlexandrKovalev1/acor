@@ -9,16 +9,18 @@ import {
 import { useState } from 'react'
 import { TreeNode } from 'primereact/treenode'
 import { Button } from '../button'
-import { useSearchParams } from 'react-router-dom'
+import { Navigate, useSearchParams } from 'react-router-dom'
 import { useExpandNavigateTree } from '../../common/hooks/useExpandNavigateTree.ts'
 import { ToggleIcon } from '../../assets'
 import clsx from 'clsx'
 import { CheckBox } from '../checkBox'
 import { useGetClasses } from '../../common/hooks/useGetClasses.ts'
+import { ROUTES } from '../../app/router/router.tsx'
+import { toast } from 'react-toastify'
 
 export const NavigationMenu = () => {
   const [searchParams] = useSearchParams()
-  const { classes: nodes } = useGetClasses()
+  const { classes: nodes, error } = useGetClasses()
   const { expandAll, expandedKeys, setExpandedKeys, collapseAll } = useExpandNavigateTree(nodes)
   const filterValue = searchParams.get('search') || ''
 
@@ -56,6 +58,11 @@ export const NavigationMenu = () => {
       ...expandedKeys,
       [e.node.key as string | number]: true,
     }))
+  }
+
+  if (error) {
+    toast('Unauthorized', { type: 'error' })
+    return <Navigate to={ROUTES.login} />
   }
 
   return (
